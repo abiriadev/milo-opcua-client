@@ -1,0 +1,2 @@
+watch:
+	gradle run -t
