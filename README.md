@@ -1,5 +1,7 @@
 # Milo OPC UA to AAS Client
 
+A configurable OPC UA Client
+
 ## How to build
 
 ### Manual Build
