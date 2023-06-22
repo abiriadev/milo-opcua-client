@@ -6,29 +6,18 @@ import java.io.InputStream;
 import java.util.HashMap;
 import java.util.Properties;
 
-/**
- * PropTargetReader
- */
 public class PropTargetReader implements TargetReader {
 
-	Properties prop;
+	Properties prop = new Properties();
 
 	PropTargetReader() {
-		prop = new Properties();
-		InputStream inpst = null;
-		try {
-			inpst = new FileInputStream("ua.properties");
+		try (
+			var inpst = App.class.getClassLoader()
+				.getResourceAsStream("ua.properties")
+		) {
 			prop.load(inpst);
 		} catch (IOException e) {
 			e.printStackTrace();
-		} finally {
-			if (inpst != null) {
-				try {
-					inpst.close();
-				} catch (IOException e) {
-					e.printStackTrace();
-				}
-			}
 		}
 	}
 

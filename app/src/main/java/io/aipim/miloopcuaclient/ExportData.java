@@ -1,6 +1,12 @@
 package io.aipim.miloopcuaclient;
 
-/**
- * ExportData
- */
-public class ExportData {}
+import java.util.HashMap;
+
+public class ExportData {
+
+	public HashMap<String, String> hsm;
+
+	ExportData(HashMap<String, String> hsm) {
+		this.hsm = hsm;
+	}
+}
