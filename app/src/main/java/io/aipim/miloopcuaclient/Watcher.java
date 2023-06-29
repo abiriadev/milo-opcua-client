@@ -5,6 +5,7 @@ import static org.eclipse.milo.opcua.stack.core.types.builtin.unsigned.Unsigned.
 
 import java.util.HashMap;
 import java.util.concurrent.ExecutionException;
+import lombok.extern.slf4j.Slf4j;
 import org.eclipse.milo.opcua.sdk.client.OpcUaClient;
 import org.eclipse.milo.opcua.sdk.client.api.UaClient;
 import org.eclipse.milo.opcua.sdk.client.api.subscriptions.UaMonitoredItem;
@@ -19,6 +20,7 @@ import org.eclipse.milo.opcua.stack.core.types.structured.MonitoredItemCreateReq
 import org.eclipse.milo.opcua.stack.core.types.structured.MonitoringParameters;
 import org.eclipse.milo.opcua.stack.core.types.structured.ReadValueId;
 
+@Slf4j
 public class Watcher {
 
 	Exporter exporter;
@@ -33,12 +35,15 @@ public class Watcher {
 		this.target = target;
 		this.exporter = exporter;
 
-		for (var k : target.keySet()) lkup.put(
+		for (final var k : target.keySet()) lkup.put(
 			NodeId.parse(target.get(k)),
 			k
 		);
 
-		for (var k : target.keySet()) expd.hsm.put(k, null);
+		for (final var k : target.keySet()) expd.hsm.put(
+			k,
+			null
+		);
 
 		try {
 			client =
@@ -49,22 +54,20 @@ public class Watcher {
 					.connect()
 					.get();
 
-			var subscription = client
+			final var subscription = client
 				.getSubscriptionManager()
 				.createSubscription(1000.0)
 				.get();
 
-			for (var k : target.keySet()) reg(
+			for (final var k : target.keySet()) reg(
 				subscription,
 				NodeId.parse(target.get(k))
 			);
-			// Identifiers.Server_ServerStatus_CurrentTime,
 		} catch (Exception e) {}
 	}
 
 	void reg(UaSubscription subscription, NodeId nid)
 		throws InterruptedException, ExecutionException {
-		System.out.println("reg: " + nid.toString());
 		for (UaMonitoredItem item : subscription
 			.createMonitoredItems(
 				TimestampsToReturn.Both,
@@ -93,17 +96,19 @@ public class Watcher {
 			)
 			.get()) if (
 			item.getStatusCode().isGood()
-		) System.out.println(
+		) log.info(
 			"item created for nodeId=" +
 			item.getReadValueId().getNodeId()
-		); else System.out.println("warn");
+		); else log.warn("warn");
 	}
 
 	private void onSubscriptionValue(
 		UaMonitoredItem item,
 		DataValue value
 	) {
-		var k = lkup.get(item.getReadValueId().getNodeId());
+		final var k = lkup.get(
+			item.getReadValueId().getNodeId()
+		);
 		if (k != null) expd.hsm.put(
 			k,
 			value.getValue().getValue().toString()

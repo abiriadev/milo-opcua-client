@@ -10,7 +10,7 @@ public class PropTargetReader implements TargetReader {
 
 	PropTargetReader() {
 		try (
-			var inpst = App.class.getClassLoader()
+			final var inpst = App.class.getClassLoader()
 				.getResourceAsStream("ua.properties")
 		) {
 			prop.load(inpst);
@@ -20,7 +20,7 @@ public class PropTargetReader implements TargetReader {
 	}
 
 	public Target getMap() {
-		var hash = new HashMap<String, String>();
+		final var hash = new HashMap<String, String>();
 		for (final String k : prop.stringPropertyNames()) hash.put(
 			k,
 			prop.getProperty(k)

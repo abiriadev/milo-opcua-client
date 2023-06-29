@@ -26,6 +26,6 @@
 			}
 		}
 	],
-	"plugins": ["prettier-plugin-java"],
+	"plugins": ["prettier-plugin-java", "@prettier/plugin-xml"],
 	"xmlWhitespaceSensitivity": "ignore"
 }

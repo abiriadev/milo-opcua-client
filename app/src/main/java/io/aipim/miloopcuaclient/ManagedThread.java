@@ -1,7 +1,9 @@
 package io.aipim.miloopcuaclient;
 
 import java.util.concurrent.ConcurrentLinkedQueue;
+import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
 public class ManagedThread extends Thread {
 
 	int interval = 10;
@@ -34,7 +36,7 @@ public class ManagedThread extends Thread {
 			e.printStackTrace();
 		} else switch (q.poll()) {
 			case EXIT:
-				System.out.println("exit thread");
+				log.debug("exit thread");
 				break loop;
 		}
 	}

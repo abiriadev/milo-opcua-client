@@ -2,12 +2,22 @@ package io.aipim.miloopcuaclient;
 
 import java.util.concurrent.ConcurrentLinkedQueue;
 
-public class Initializer {
+public final class Initializer implements Runnable {
+
+	private TargetReader tr;
+	private Exporter exporter;
 
 	Initializer(TargetReader tr, Exporter exporter) {
-		var q = new ConcurrentLinkedQueue<ThreadMessage>();
+		this.tr = tr;
+		this.exporter = exporter;
+	}
 
-		var th = new ManagedThread(
+	@Override
+	public void run() {
+		final var q =
+			new ConcurrentLinkedQueue<ThreadMessage>();
+
+		final var th = new ManagedThread(
 			q,
 			() -> new Watcher(tr.getMap(), exporter)
 		);
