@@ -7,17 +7,14 @@ import org.slf4j.LoggerFactory;
 @Slf4j
 public class App {
 
-	// NOTE: logger property should be static and package-private.
-	static final Logger logger = LoggerFactory.getLogger(
-		App.class
-	);
-
 	public static void main(String[] args) {
 		new Initializer(
-			new PropTargetReader(),
-			new ConsoleExporter()
+			// new PropTargetReader(),
+			new DotentTargetReader(),
+			// new ConsoleExporter()
+			new JsonExporter()
 		)
 			.run();
-		logger.error("Initialization ended");
+		log.debug("Initialization ended");
 	}
 }
