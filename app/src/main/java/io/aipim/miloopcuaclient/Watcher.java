@@ -3,6 +3,7 @@ package io.aipim.miloopcuaclient;
 import static com.google.common.collect.Lists.newArrayList;
 import static org.eclipse.milo.opcua.stack.core.types.builtin.unsigned.Unsigned.uint;
 
+import io.aipim.miloopcuaclient.Exporter.Exporter;
 import java.util.HashMap;
 import java.util.concurrent.ExecutionException;
 import lombok.extern.slf4j.Slf4j;

@@ -1,5 +1,6 @@
-package io.aipim.miloopcuaclient;
+package io.aipim.miloopcuaclient.TargetReader;
 
+import io.aipim.miloopcuaclient.Target;
 import io.github.cdimascio.dotenv.Dotenv;
 import io.github.cdimascio.dotenv.DotenvEntry;
 import java.util.HashMap;

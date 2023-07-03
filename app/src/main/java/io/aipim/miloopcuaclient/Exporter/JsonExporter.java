@@ -1,5 +1,6 @@
-package io.aipim.miloopcuaclient;
+package io.aipim.miloopcuaclient.Exporter;
 
+import io.aipim.miloopcuaclient.ExportData;
 import org.json.JSONObject;
 
 public class JsonExporter implements Exporter {

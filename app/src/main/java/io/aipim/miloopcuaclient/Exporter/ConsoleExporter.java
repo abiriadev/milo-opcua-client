@@ -1,5 +1,6 @@
-package io.aipim.miloopcuaclient;
+package io.aipim.miloopcuaclient.Exporter;
 
+import io.aipim.miloopcuaclient.ExportData;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j

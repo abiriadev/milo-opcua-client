@@ -1,5 +1,7 @@
-package io.aipim.miloopcuaclient;
+package io.aipim.miloopcuaclient.TargetReader;
 
+import io.aipim.miloopcuaclient.App;
+import io.aipim.miloopcuaclient.Target;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Properties;
