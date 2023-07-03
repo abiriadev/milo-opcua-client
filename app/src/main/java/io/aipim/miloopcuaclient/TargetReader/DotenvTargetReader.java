@@ -5,7 +5,7 @@ import io.github.cdimascio.dotenv.Dotenv;
 import io.github.cdimascio.dotenv.DotenvEntry;
 import java.util.HashMap;
 
-public class DotentTargetReader implements TargetReader {
+public class DotenvTargetReader implements TargetReader {
 
 	private Dotenv dotenv = Dotenv.load();
 
