@@ -10,7 +10,7 @@ public class PropTargetReader implements TargetReader {
 
 	Properties prop = new Properties();
 
-	PropTargetReader() {
+	public PropTargetReader() {
 		try (
 			final var inpst = App.class.getClassLoader()
 				.getResourceAsStream("ua.properties")
