@@ -16,27 +16,22 @@ public final class Initializer implements Runnable {
 
 	@Override
 	public void run() {
-		final var q =
-			new ConcurrentLinkedQueue<ThreadMessage>();
-
 		final var th = new ManagedThread(
-			q,
+			new ConcurrentLinkedQueue<ThreadMessage>(),
 			() -> new Watcher(tr.getMap(), exporter)
 		);
 
 		Runtime
 			.getRuntime()
-			.addShutdownHook(
-				new Thread(() -> {
-					q.offer(ThreadMessage.EXIT);
-					try {
-						th.join();
-					} catch (InterruptedException e) {
-						e.printStackTrace();
-					}
-				})
-			);
+			.addShutdownHook(new Thread(() -> th.exit()));
 
 		th.start();
+
+		try {
+			// blocks the main thread for picocli
+			th.join();
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
 	}
 }

@@ -36,8 +36,14 @@ public class ManagedThread extends Thread {
 			e.printStackTrace();
 		} else switch (q.poll()) {
 			case EXIT:
-				log.debug("exit thread");
 				break loop;
 		}
+	}
+
+	void exit() {
+		log.info(
+			"exit ManagedThread: {}",
+			Thread.currentThread().getName()
+		);
 	}
 }
