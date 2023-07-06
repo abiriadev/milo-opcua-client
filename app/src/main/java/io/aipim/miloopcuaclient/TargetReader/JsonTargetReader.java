@@ -2,10 +2,11 @@ package io.aipim.miloopcuaclient.TargetReader;
 
 import io.aipim.miloopcuaclient.App;
 import io.aipim.miloopcuaclient.Target;
-import java.io.File;
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
-import org.apache.commons.io.FileUtils;
+import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.io.IOUtils;
 import org.json.JSONObject;
 
 public class JsonTargetReader implements TargetReader {
@@ -16,13 +17,10 @@ public class JsonTargetReader implements TargetReader {
 		try {
 			json =
 				new JSONObject(
-					FileUtils.readFileToString(
-						new File(
-							App.class.getClassLoader()
-								.getResource("ua.json")
-								.getFile()
-						),
-						"UTF-8"
+					IOUtils.toString(
+						App.class.getClassLoader()
+							.getResourceAsStream("ua.json"),
+						StandardCharsets.UTF_8
 					)
 				);
 		} catch (IOException e) {
