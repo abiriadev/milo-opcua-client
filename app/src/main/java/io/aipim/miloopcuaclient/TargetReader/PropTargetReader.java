@@ -5,7 +5,9 @@ import io.aipim.miloopcuaclient.Target;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Properties;
+import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
 public class PropTargetReader implements TargetReader {
 
 	Properties prop = new Properties();
@@ -17,7 +19,7 @@ public class PropTargetReader implements TargetReader {
 		) {
 			prop.load(inpst);
 		} catch (IOException e) {
-			e.printStackTrace();
+			log.error("UA properties file not found", e);
 		}
 	}
 

@@ -9,22 +9,30 @@ import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.io.IOUtils;
 import org.json.JSONObject;
 
+@Slf4j
 public class JsonTargetReader implements TargetReader {
 
 	JSONObject json;
 
 	public JsonTargetReader() {
 		try {
+			var st =
+				App.class.getClassLoader()
+					.getResourceAsStream("ua.json");
+
+			if (st == null) throw new IOException(
+				"ua1.json file resource stream does not exist"
+			);
+
 			json =
 				new JSONObject(
 					IOUtils.toString(
-						App.class.getClassLoader()
-							.getResourceAsStream("ua.json"),
+						st,
 						StandardCharsets.UTF_8
 					)
 				);
 		} catch (IOException e) {
-			e.printStackTrace();
+			log.error("UA JSON file not found", e);
 		}
 	}
 

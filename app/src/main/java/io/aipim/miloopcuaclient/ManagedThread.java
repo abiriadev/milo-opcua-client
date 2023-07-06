@@ -33,7 +33,7 @@ public class ManagedThread extends Thread {
 		loop:while (true) if (q.peek() == null) try {
 			Thread.sleep(interval);
 		} catch (InterruptedException e) {
-			e.printStackTrace();
+			log.error("ManagedThread sleep interrupted", e);
 		} else switch (q.poll()) {
 			case EXIT:
 				break loop;

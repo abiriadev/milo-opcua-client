@@ -40,7 +40,10 @@ public class App implements Runnable {
 		) {
 			props.load(st);
 		} catch (IOException e) {
-			e.printStackTrace();
+			log.error(
+				"Config properties file not found",
+				e
+			);
 		}
 
 		new Initializer(

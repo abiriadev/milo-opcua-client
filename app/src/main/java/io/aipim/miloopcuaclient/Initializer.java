@@ -4,7 +4,9 @@ import io.aipim.miloopcuaclient.Exporter.Exporter;
 import io.aipim.miloopcuaclient.TargetReader.TargetReader;
 import java.util.concurrent.ConcurrentLinkedQueue;
 import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
 @AllArgsConstructor
 public final class Initializer implements Runnable {
 
@@ -29,7 +31,7 @@ public final class Initializer implements Runnable {
 			// blocks the main thread for picocli
 			th.join();
 		} catch (InterruptedException e) {
-			e.printStackTrace();
+			log.error("ManagedThread join interrupted", e);
 		}
 	}
 }
