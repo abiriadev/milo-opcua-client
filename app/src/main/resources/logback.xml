@@ -9,7 +9,7 @@
 			</pattern>
 		</encoder>
 	</appender>
-	<root level="error">
+	<root level="${LOGBACK_LEVEL:-info}">
 		<appender-ref ref="STDOUT" />
 	</root>
 </configuration>
