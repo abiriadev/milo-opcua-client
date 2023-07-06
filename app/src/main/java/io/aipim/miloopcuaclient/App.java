@@ -1,21 +1,40 @@
 package io.aipim.miloopcuaclient;
 
-import io.aipim.miloopcuaclient.Exporter.JsonExporter;
+import io.aipim.miloopcuaclient.Exporter.ConsoleExporter;
 import io.aipim.miloopcuaclient.TargetReader.JsonTargetReader;
 import lombok.extern.slf4j.Slf4j;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import picocli.CommandLine;
+import picocli.CommandLine.Command;
+import picocli.CommandLine.Option;
 
 @Slf4j
-public class App {
+@Command(
+	name = "milo-opcua-client",
+	version = "v0.1.0",
+	mixinStandardHelpOptions = true
+)
+public class App implements Runnable {
+
+	@Option(
+		names = { "-u", "--url" },
+		paramLabel = "<URL>",
+		description = "URL to OPC UA Server"
+	)
+	String url;
 
 	public static void main(String[] args) {
+		System.exit(
+			new CommandLine(new App()).execute(args)
+		);
+	}
+
+	@Override
+	public void run() {
 		new Initializer(
 			new JsonTargetReader(),
-			// new ConsoleExporter()
-			new JsonExporter()
+			new ConsoleExporter()
 		)
 			.run();
-		log.debug("Initialization ended");
+		log.info("Stopping Main Thread");
 	}
 }
