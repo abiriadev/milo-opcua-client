@@ -2,6 +2,8 @@ package io.aipim.miloopcuaclient;
 
 import io.aipim.miloopcuaclient.Exporter.ConsoleExporter;
 import io.aipim.miloopcuaclient.TargetReader.JsonTargetReader;
+import java.io.IOException;
+import java.util.Properties;
 import lombok.extern.slf4j.Slf4j;
 import picocli.CommandLine;
 import picocli.CommandLine.Command;
@@ -22,6 +24,8 @@ public class App implements Runnable {
 	)
 	String url;
 
+	private Properties props = new Properties();
+
 	public static void main(String[] args) {
 		System.exit(
 			new CommandLine(new App()).execute(args)
@@ -30,11 +34,29 @@ public class App implements Runnable {
 
 	@Override
 	public void run() {
+		try (
+			final var st = App.class.getClassLoader()
+				.getResourceAsStream("config.properties")
+		) {
+			props.load(st);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
 		new Initializer(
 			new JsonTargetReader(),
-			new ConsoleExporter()
+			new ConsoleExporter(),
+			configFactory()
 		)
 			.run();
 		log.info("Stopping Main Thread");
+	}
+
+	private Config configFactory() {
+		var config = new Config();
+		if (url != null) config.setUrl(
+			url
+		); else config.setUrl(props.get("url").toString());
+		return config;
 	}
 }

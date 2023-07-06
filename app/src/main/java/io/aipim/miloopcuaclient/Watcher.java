@@ -32,7 +32,11 @@ public class Watcher {
 	);
 	HashMap<NodeId, String> lkup = new HashMap<>();
 
-	Watcher(Target target, Exporter exporter) {
+	Watcher(
+		Target target,
+		Exporter exporter,
+		Config config
+	) {
 		this.target = target;
 		this.exporter = exporter;
 
@@ -49,9 +53,7 @@ public class Watcher {
 		try {
 			client =
 				OpcUaClient
-					.create(
-						"opc.tcp://milo.digitalpetri.com:62541/milo"
-					)
+					.create(config.getUrl())
 					.connect()
 					.get();
 

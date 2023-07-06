@@ -3,22 +3,20 @@ package io.aipim.miloopcuaclient;
 import io.aipim.miloopcuaclient.Exporter.Exporter;
 import io.aipim.miloopcuaclient.TargetReader.TargetReader;
 import java.util.concurrent.ConcurrentLinkedQueue;
+import lombok.AllArgsConstructor;
 
+@AllArgsConstructor
 public final class Initializer implements Runnable {
 
 	private TargetReader tr;
 	private Exporter exporter;
-
-	Initializer(TargetReader tr, Exporter exporter) {
-		this.tr = tr;
-		this.exporter = exporter;
-	}
+	private Config config;
 
 	@Override
 	public void run() {
 		final var th = new ManagedThread(
 			new ConcurrentLinkedQueue<ThreadMessage>(),
-			() -> new Watcher(tr.getMap(), exporter)
+			() -> new Watcher(tr.getMap(), exporter, config)
 		);
 
 		Runtime
