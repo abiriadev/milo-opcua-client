@@ -4,9 +4,7 @@ import static com.google.common.collect.Lists.newArrayList;
 import static org.eclipse.milo.opcua.stack.core.types.builtin.unsigned.Unsigned.uint;
 
 import io.aipim.miloopcuaclient.Exporter.Exporter;
-import java.util.AbstractMap;
 import java.util.HashMap;
-import java.util.Map;
 import java.util.concurrent.ExecutionException;
 import lombok.extern.slf4j.Slf4j;
 import org.eclipse.milo.opcua.sdk.client.OpcUaClient;
@@ -29,12 +27,7 @@ public class Watcher {
 	Exporter exporter;
 	UaClient client;
 	Target target;
-	// ExportData expd = new ExportData(
-	// 	new HashMap<String, String>()
-	// );
-	ExportData expd = new ExportData(
-		new HashMap<String, Map.Entry<UaMonitoredItem, DataValue>>()
-	);
+	HashMap<String, ExportNode> expd = new HashMap<>();
 	HashMap<NodeId, String> lkup = new HashMap<>();
 
 	Watcher(
@@ -50,7 +43,7 @@ public class Watcher {
 			k
 		);
 
-		for (final var k : target.keySet()) expd.hsm.put(
+		for (final var k : target.keySet()) expd.put(
 			k,
 			null
 		);
@@ -117,15 +110,24 @@ public class Watcher {
 		final var k = lkup.get(
 			item.getReadValueId().getNodeId()
 		);
-		if (k != null) expd.hsm.put(
+		if (k != null) expd.put(
 			k,
-			new AbstractMap.SimpleEntry<>(item, value)
-			// value.getValue().getValue().toString()
+			new ExportNode.ExportNodeBuilder()
+				.value(value.getValue().getValue())
+				.idType(
+					value
+						.getValue()
+						.getDataType()
+						.get()
+						.getType()
+				)
+				.statusCode(value.getStatusCode())
+				.build()
 		);
 		send(expd);
 	}
 
-	void send(ExportData data) {
-		exporter.export(data);
+	void send(HashMap<String, ExportNode> data) {
+		exporter.export(new ExportData(expd));
 	}
 }

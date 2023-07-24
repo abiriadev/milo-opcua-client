@@ -1,8 +1,6 @@
 package io.aipim.miloopcuaclient;
 
 import io.aipim.miloopcuaclient.Exporter.AasExporter.AasExporter;
-import io.aipim.miloopcuaclient.Exporter.ConsoleExporter;
-import io.aipim.miloopcuaclient.TargetReader.JsonTargetReader;
 import io.aipim.miloopcuaclient.TargetReader.PropTargetReader;
 import java.io.IOException;
 import java.util.Properties;
@@ -52,7 +50,7 @@ public class App implements Runnable {
 			// new JsonTargetReader(),
 			new PropTargetReader(),
 			// new ConsoleExporter(),
-			new AasExporter(),
+			new AasExporter("aas.json"),
 			configFactory()
 		)
 			.run();

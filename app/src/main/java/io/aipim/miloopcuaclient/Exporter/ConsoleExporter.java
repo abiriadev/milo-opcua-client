@@ -8,10 +8,10 @@ public class ConsoleExporter implements Exporter {
 
 	@Override
 	public void export(ExportData data) {
-		for (final var k : data.hsm.keySet()) System.out.format(
+		for (final var k : data.targets.keySet()) System.out.format(
 			"%s: %s,\t",
 			k,
-			data.hsm.get(k)
+			data.targets.get(k).value
 		);
 		System.out.println();
 	}

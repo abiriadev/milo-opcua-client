@@ -1,17 +1,15 @@
 package io.aipim.miloopcuaclient;
 
+import java.io.Serializable;
+import java.time.LocalDateTime;
 import java.util.HashMap;
-import java.util.Map;
-import org.eclipse.milo.opcua.sdk.client.api.subscriptions.UaMonitoredItem;
-import org.eclipse.milo.opcua.stack.core.types.builtin.DataValue;
 
-public class ExportData {
+public class ExportData implements Serializable {
 
-	public HashMap<String, Map.Entry<UaMonitoredItem, DataValue>> hsm;
+	public HashMap<String, ExportNode> targets;
+	public LocalDateTime exportTime = LocalDateTime.now();
 
-	ExportData(
-		HashMap<String, Map.Entry<UaMonitoredItem, DataValue>> hsm
-	) {
-		this.hsm = hsm;
+	public ExportData(HashMap<String, ExportNode> targets) {
+		this.targets = targets;
 	}
 }
