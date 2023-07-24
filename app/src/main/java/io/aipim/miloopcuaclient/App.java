@@ -1,7 +1,9 @@
 package io.aipim.miloopcuaclient;
 
+import io.aipim.miloopcuaclient.Exporter.AasExporter.AasExporter;
 import io.aipim.miloopcuaclient.Exporter.ConsoleExporter;
 import io.aipim.miloopcuaclient.TargetReader.JsonTargetReader;
+import io.aipim.miloopcuaclient.TargetReader.PropTargetReader;
 import java.io.IOException;
 import java.util.Properties;
 import lombok.extern.slf4j.Slf4j;
@@ -47,8 +49,10 @@ public class App implements Runnable {
 		}
 
 		new Initializer(
-			new JsonTargetReader(),
-			new ConsoleExporter(),
+			// new JsonTargetReader(),
+			new PropTargetReader(),
+			// new ConsoleExporter(),
+			new AasExporter(),
 			configFactory()
 		)
 			.run();

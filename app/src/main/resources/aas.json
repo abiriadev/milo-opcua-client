@@ -1,0 +1,39 @@
+{
+	"assetAdministrationShells": [
+		{
+			"modelType": "AssetAdministrationShell",
+			"assetInformation": {
+				"assetKind": "Instance"
+			},
+			"submodels": [
+				{
+					"keys": [
+						{
+							"type": "Submodel",
+							"value": "https://aipim.io/sub/1"
+						}
+					],
+					"type": "ModelReference"
+				}
+			],
+			"id": "https://aipim.io/aas/1",
+			"idShort": "aas1"
+		}
+	],
+	"submodels": [
+		{
+			"modelType": "Submodel",
+			"kind": "Instance",
+			"id": "https://aipim.io/sub/1",
+			"idShort": "sub1",
+			"submodelElements": [
+				{
+					"modelType": "Property",
+					"value": "0",
+					"valueType": "xs:integer",
+					"idShort": "prop1"
+				}
+			]
+		}
+	]
+}

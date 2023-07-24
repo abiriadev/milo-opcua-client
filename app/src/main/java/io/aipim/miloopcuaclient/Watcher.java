@@ -4,7 +4,9 @@ import static com.google.common.collect.Lists.newArrayList;
 import static org.eclipse.milo.opcua.stack.core.types.builtin.unsigned.Unsigned.uint;
 
 import io.aipim.miloopcuaclient.Exporter.Exporter;
+import java.util.AbstractMap;
 import java.util.HashMap;
+import java.util.Map;
 import java.util.concurrent.ExecutionException;
 import lombok.extern.slf4j.Slf4j;
 import org.eclipse.milo.opcua.sdk.client.OpcUaClient;
@@ -27,8 +29,11 @@ public class Watcher {
 	Exporter exporter;
 	UaClient client;
 	Target target;
+	// ExportData expd = new ExportData(
+	// 	new HashMap<String, String>()
+	// );
 	ExportData expd = new ExportData(
-		new HashMap<String, String>()
+		new HashMap<String, Map.Entry<UaMonitoredItem, DataValue>>()
 	);
 	HashMap<NodeId, String> lkup = new HashMap<>();
 
@@ -114,7 +119,8 @@ public class Watcher {
 		);
 		if (k != null) expd.hsm.put(
 			k,
-			value.getValue().getValue().toString()
+			new AbstractMap.SimpleEntry<>(item, value)
+			// value.getValue().getValue().toString()
 		);
 		send(expd);
 	}

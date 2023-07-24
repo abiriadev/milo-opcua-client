@@ -40,6 +40,9 @@ dependencies {
     implementation 'commons-io:commons-io:2.13.0'
 
     implementation 'info.picocli:picocli:4.7.4'
+    
+    // implementation 'io.admin-shell.aas:dataformat-json:1.2.1'
+    implementation 'org.eclipse.digitaltwin.aas4j:dataformat-json:1.0.0-milestone-03.1'
 }
 
 // Apply a specific Java toolchain to ease working on different environments.
