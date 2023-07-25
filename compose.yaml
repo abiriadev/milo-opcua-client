@@ -1,4 +1,7 @@
 services:
   app:
-    build: .
+    build:
+      context: .
+      target: runner
     restart: always
+    image: milo-opcua-client:v0.1.0

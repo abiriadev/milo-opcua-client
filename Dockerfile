@@ -22,4 +22,4 @@ WORKDIR /usr/app
 # copy fat jar file from the previous container
 COPY --from=builder /usr/app/app/build/libs/app-all.jar app-all.jar
 
-CMD ["java", "-jar", "./app-all.jar"]
+ENTRYPOINT ["java", "-jar", "./app-all.jar"]

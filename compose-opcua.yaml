@@ -1,0 +1,7 @@
+services:
+  app:
+    command:
+      - --url
+      - opc.tcp://vcp_generator:52530/OPCUA/VcpDemoServer
+    extra_hosts:
+      - vcp_generator:192.168.0.32
